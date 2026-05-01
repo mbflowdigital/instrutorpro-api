@@ -111,12 +111,12 @@ builder.Services.AddHttpClient<IPaymentService, AsaasPaymentService>(client =>
 // ─────────────────────────────────────────────
 // Hangfire — Jobs agendados
 // ─────────────────────────────────────────────
-builder.Services.AddHangfire(config =>
-    config.UsePostgreSqlStorage(options =>
-        options.UseNpgsqlConnection(
-            configuration.GetConnectionString("DefaultConnection") ?? string.Empty)));
+//builder.Services.AddHangfire(config =>
+//    config.UsePostgreSqlStorage(options =>
+//        options.UseNpgsqlConnection(
+//            configuration.GetConnectionString("DefaultConnection") ?? string.Empty)));
 
-builder.Services.AddHangfireServer();
+//builder.Services.AddHangfireServer();
 builder.Services.AddScoped<ValidacaoCredenciamentoJob>();
 
 // ─────────────────────────────────────────────
@@ -161,17 +161,17 @@ app.UseAuthorization();
 app.MapControllers();
 
 // Hangfire Dashboard (apenas em desenvolvimento)
-if (app.Environment.IsDevelopment())
-{
-    app.UseHangfireDashboard("/hangfire");
-}
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseHangfireDashboard("/hangfire");
+//}
 
 // Registra o job semanal de validação de credenciamentos
 // Executa toda segunda-feira às 03:00 (UTC)
-RecurringJob.AddOrUpdate<ValidacaoCredenciamentoJob>(
-    "validacao-credenciamento-semanal",
-    job => job.ExecutarAsync(),
-    "0 3 * * 1");
+//RecurringJob.AddOrUpdate<ValidacaoCredenciamentoJob>(
+//    "validacao-credenciamento-semanal",
+//    job => job.ExecutarAsync(),
+//    "0 3 * * 1");
 
 app.Run();
 
